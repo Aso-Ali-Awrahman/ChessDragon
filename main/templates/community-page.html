@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="box-container">
+
+        <div class="row">
+            <div class="col">
+                <a href="https://youtube.com/@ChessDragon-dm5et?si=UkUuSqXURCQ33bYP" class="text-danger">
+                    <img src="{% static '/images/icons/youtube.png' %}" alt="Youtube" style="height: 30px;" class="img-fluid">
+                    <p>Chess Dragon</p>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="https://tiktok.com/@chess_dragon0" class="text-dark">
+                    <img src="{% static '/images/icons/tiktok.png' %}" alt="TikTok" style="height: 30px;" class="img-fluid">
+                    <p>Chess Dragon</p>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="https://instagram.com/chess_dragon_?utm_source=qr&igshid=MzNlNGNkZWQ4Mg%3D%3D" class="text-danger">
+                    <img src="{% static '/images/icons/instagram.png' %}" alt="Instagram" style="height: 30px;" class="img-fluid">
+                    <p>Chess Dragon</p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    {% if links|length != 0 %}
+        <div class="box-container" style="max-width: 1000px; max-height: 450px; overflow: auto;">
+
+            {% for link in links %}
+                <iframe src="https://www.youtube.com/{{ link }}" width="70%" style="height: 400px;"></iframe>
+                <br>
+            {% endfor %}
+            
+        </div>
+    {% endif %}
+    
+
+{% endblock %}

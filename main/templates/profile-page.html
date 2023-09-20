@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+    <br>
+    <div class="box-container" style="max-width: 700px;">
+
+        <div class="d-flex flex-wrap justify-content-between mb-3">
+
+            <div class="justify-content-start">
+                <img src="{% static '/images/PNG/Black right.png' %}" width="60" alt="logo">
+            </div>
+            
+            <div class="justify-content-center">
+                <h4 class="text-primary">{{ request.user.username }}</h4>
+            </div>
+
+            <div class="justify-content-end">
+                <img src="{% static '/images/PNG/Black left.png' %}" width="60" alt="logo">
+            </div>
+
+        </div>
+
+        <div class="m-3">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" name="logout-button" class="btn btn-outline-danger ml-3 mr-3" onclick="return confirm('Do You Want To Log Out?')">Log Out</button>
+            </form>
+        </div>
+    
+    </div>
+
+
+{% endblock %}

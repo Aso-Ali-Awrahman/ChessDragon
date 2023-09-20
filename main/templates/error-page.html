@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div>
+
+        <div class="box-container">
+            <h4 class="text-dark text-capitalize">
+                <!-- guess you want to mess my website structue, i will sacrifice you!! -->
+                {{ message }}
+            </h4>
+        </div>
+
+        <center>
+            <img src="{% static '/images/mikhail-tal.png' %}" class="mt-3 img-fluid" width="270px" alt="mikhial">
+        </center>
+        
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+    <br>
+    <div class="box-container">
+
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <div class="m-3" align="center">
+                <h4 class="text-info m-3">Sign in to use the features</h4>
+                <div class="input-group w-50 m-1">
+                    <span class="input-group-text"><img src="{% static '/images/icons/username.png' %}" width="30" height="32" alt="user"></span>
+                    <input type="text" required minlength="7" autocomplete="off" name="username" class="form-control input-group text-center text-success" placeholder="Username">
+                </div>
+                <div class="input-group w-50 m-1">
+                    <span class="input-group-text"><img src="{% static '/images/icons/password.png' %}" width="30" height="32" alt="user"></span>
+                    <input type="password" required minlength="7" autocomplete="off" name="password" class="form-control input-group text-center" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-outline-primary mt-1 mb-1">Login</button>
+            </div>
+
+        </form>
+
+    </div>
+
+    
+    {% if message != '' %}
+        <script>
+            alert('{{ message|safe }}')
+        </script>
+    {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="box-container" style="max-width: 550px; overflow: auto; max-height: 540px;">
+
+        {% if is_print %}
+            <div  id="table-print" style="display: none;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            {% for _ in round_count %}
+                                <th>Round {{ forloop.counter}}</th>
+                            {% endfor %}
+                            <th>White</th>
+                            <th>Black</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for name, info in ranking.items %}
+
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ name }}</td>
+
+                                {% for round in info.rounds %}
+                                    <td>{{ round }}</td>
+                                {% endfor %}
+
+                                <td>{{ info.color.White }}</td>
+                                <td>{{ info.color.Black }}</td>
+                                <td>{{ info.score }}</td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+        
+                </table>
+            </div>
+        {% endif %} 
+
+        <div class="d-flex flex-wrap justify-content-between">
+            <div class="justify-content-start">
+                <img src="{% static '/images/PNG/Red right.png' %}" width="60" alt="logo">
+            </div>
+
+            {% if is_print %}
+                <div class="justify-content-center">
+                    <div>
+                        <button class="btn btn-sm mb-3" onclick="print_table_data('table-print')"><img src="{% static '/images/icons/print.png' %}" width="40" alt="print-data"></button>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="justify-content-end">
+                <img src="{% static '/images/PNG/Red left.png' %}" width="60" alt="logo">
+            </div>
+        </div>
+
+        {% for name, info in ranking.items %}
+
+            <div class="input-group justify-content-center mb-3">
+
+                <span class="input-group-text bg-transparent text-success text-center border border-light" style="font-weight: bold;">
+                    {{ forloop.counter }}
+                </span>
+                <span class="input-group-text bg-transparent text-dark justify-content-center w-50 border border-light" style="font-weight: bold;">
+                    {{ name }}
+                </span>
+                <span class="input-group-text bg-transparent text-primary text-center border border-light" style="font-weight: bold;">
+                    {{ info.score }}
+                </span>
+                
+            </div>
+            
+        {% endfor %}
+
+        <div class="d-flex flex-wrap justify-content-between">
+            <div class="justify-content-start">
+                <img src="{% static '/images/PNG/Black right.png' %}" width="60" alt="logo">
+            </div>
+
+            <div class="justify-content-end">
+                <img src="{% static '/images/PNG/Black left.png' %}" width="60" alt="logo">
+            </div>
+        </div>
+
+    </div>
+    
+
+{% endblock %}

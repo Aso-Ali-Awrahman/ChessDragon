@@ -1,0 +1,151 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+    <br>
+    <div class="box-container" style="max-width: 700px;">
+
+        <div class="d-flex flex-wrap justify-content-between mb-3">
+
+            <div class="justify-content-start">
+                <img src="{% static '/images/PNG/Black right.png' %}" width="60" alt="logo">
+            </div>
+            
+            <div class="justify-content-center">
+                <h4 class="text-primary">{{ request.user.username }}</h4>
+            </div>
+
+            <div class="justify-content-end">
+                <img src="{% static '/images/PNG/Black left.png' %}" width="60" alt="logo">
+            </div>
+
+        </div>
+        
+        <div class="row m-3">
+
+            <div class="col-5">
+                <button type="button" class="btn btn-outline-success m-1" onclick="form_visibility(true, 'create-form')">Create User</button>
+
+                <button type="button" class="btn btn-outline-primary m-1" onclick="form_visibility(true, 'view-form')">View Users</button>
+            </div>
+
+            <div class="col-2">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="logout-button" class="btn btn-outline-danger mb-1 mt-1" onclick="return confirm('Log Out?');">Log Out</button>
+                </form>
+            </div>
+
+            <div class="col-5">
+                <button type="button" class="btn btn-outline-info m-1" onclick="form_visibility(true, 'post-form')">Post Blog</button>
+
+                <button type="button" class="btn btn-outline-primary m-1" onclick="form_visibility(true, 'view-blog-form')">View Blogs</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="create-form" class="hover-div" style="display: none;">
+
+        <div class="box-container" style="max-width: 350px; background-color:  #ddf3f3; margin-top: 30vh;">
+
+            <form action="" method="post">
+                {% csrf_token %}
+                
+                <div class="m-3" align="center">
+                    <div class="input-group m-1">
+                        <span class="input-group-text bg-transparent"><img src="{% static '/images/icons/username.png' %}" width="30" height="32" alt="user"></span>
+                        <input type="text" required minlength="7" autocomplete="off" name="username" class="form-control input-group text-center text-primary bg-transparent" placeholder="Username">
+                    </div>
+                    <div class="input-group m-1">
+                        <span class="input-group-text bg-transparent"><img src="{% static '/images/icons/password.png' %}" width="30" height="32" alt="user"></span>
+                        <input type="password" required minlength="7" autocomplete="off" name="password" class="form-control input-group text-center bg-transparent" placeholder="Password">
+                    </div>
+
+                    <button type="button" class="btn btn-danger mt-1 mb-1" onclick="form_visibility(false, 'create-form')">Close</button>
+                    <button type="submit" name="create-user-button" class="btn btn-primary mt-1 mb-1">Create</button>
+
+                </div>
+
+            </form>
+            
+        </div>
+
+    </div>
+
+    <div id="view-form" class="hover-div" style="display: none;">
+
+        <div class="box-container" style="overflow: auto; max-width: 300px; max-height: 380px; background-color: #ddf3f3; margin-top: 30vh;">
+
+            <button type="button" class="btn btn-sm mb-3" onclick="form_visibility(false, 'view-form')"><img src="{% static '/images/icons/close.png' %}" width="30" alt="close"></button>
+
+            {% for user in users %}
+
+                <center>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="input-group-text m-1">
+                            <span class="input-group text-center bg-transparent text-primary">{{ user.username }}</span>
+                            <button type="submit" onclick="return confirm('delete this user?');" name="delete-user-button" value="{{ user.username}}" class="btn btn-sm"><img src="{% static '/images/icons/trash.png' %}" width="25" alt="delete"></button>
+                        </div>
+                    </form>
+                </center>
+                
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <div id="post-form" class="hover-div" style="display: none;">
+
+        <div class="box-container" style="max-width: 350px; background-color: #3f6e85f7; margin-top: 30vh;">
+
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="m-3">
+                    <input type="text" name="link" required class="form-control text-light bg-transparent" placeholder="paste your youtube link">
+
+                    <div>
+                        <button type="button" class="btn btn-danger" onclick="form_visibility(false, 'post-form')">Close</button>
+                        <button type="submit" name="post-button" class="btn btn-info mt-3 mb-3">Post</button>
+                    </div>
+                   
+                </div>
+
+            </form>
+            
+        </div>
+
+    </div>
+
+    <div id="view-blog-form" class="hover-div" style="display: none;">
+
+        <div class="box-container" style="overflow: auto; max-width: 300px; max-height: 380px; background-color: #ddf3f3; margin-top: 30vh;">
+
+            <button type="button" class="btn btn-sm mb-3" onclick="form_visibility(false, 'view-blog-form')"><img src="{% static '/images/icons/close.png' %}" width="30" alt="close"></button>
+
+            {% for link in link_videos %}
+
+                <center>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="input-group-text m-1">
+                            <span class="input-group text-center bg-transparent text-primary">{{ link }}</span>
+                            <button type="submit" onclick="return confirm('delete this link?');" name="delete-link-button" value="{{ link}}" class="btn btn-sm"><img src="{% static '/images/icons/trash.png' %}" width="25" alt="delete"></button>
+                        </div>
+                    </form>
+                </center>
+                
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
