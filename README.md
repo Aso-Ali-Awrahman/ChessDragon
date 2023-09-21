@@ -30,6 +30,11 @@ data = {
 
 ### Back-End Functionality
 * all functions are in views.py file.
-* 
-
+* file_handler: used for handling the swiss_data in terms of read and write, has three parameters, action which represent either reading 'r' or writing 'w' the data, user to retrieve or update the swiss_data of the requested user, and obj which is used when the user wants to update the data of the players which is a dictionary. 
+* score_handler: returns a list that consists of unique scores based on the player's scores, if there is data of the players.
+* is_logged_in: a decorator used for 4 pages, simply checks if the user is authenticated, if it is then it can access the page, if not it will be redirected to the error page.
+* (home_page, community_page, error_page): those pages are mostly static apart from community pages which get all the links of the VideoPost model.
+* login_page: used for logging the user to use the website features, when the user submits the form, checks if the user is authenticated, if it is it will redirect to the profile page. 
+* profile_page: used for normal users that are not admin, if it is admin automatically redirects to the super_profile_page, if not it will render the profile page, the normal user in the profile page, can use the logout button to log out from the website.
+* super_profile_page: only for admin users where they can (create users, delete users, view users, post links, delete links, view links, and log out) the admin can create normal users, and only view and delete normal users aswell.
 
