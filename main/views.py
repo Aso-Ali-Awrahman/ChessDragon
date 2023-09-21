@@ -340,7 +340,7 @@ def round_page(request):
             final_pair_list = []  
             pair = []
             color_order = 'White'
-            # using this algorithm the lsit has the highest accurate pairirng based on the color
+            # using this algorithm the list has the highest accurate pairirng based on the color
             for name_list in naming_list_list:
                 while len(name_list) != 0:
                     for name in name_list:
