@@ -552,7 +552,7 @@ def knockout_page(request):
         elif 'pair-button' in request.POST:
             data = user.knockout_data
             
-            if (len(data['white_players']) + len(data['black_players'])) == 2:
+            if (len(data['white_players']) + len(data['black_players'])) == 2:  # checking
                 return redirect('knock-out')
             
             players = {}
@@ -568,14 +568,14 @@ def knockout_page(request):
             white_players = []
             black_players = []
             
-            for color, name_list in user.knockout_data.items():
-                for player_name in name_list:
+            for color, name_list in user.knockout_data.items():  # getting the list str
+                for player_name in name_list:  # itterate over the names
                     try:
-                        score = int(request.POST.get(player_name))
+                        score = int(request.POST.get(player_name))  # get teh score
                         
                         if score not in [1, 0]:
                             return redirect('error-page', 'insert valid score (1, 0) !!')
-                        elif score == 1:
+                        elif score == 1:  # only those name swill remain if they have a score of 1
                             if color == 'white_players':
                                 black_players.append(player_name)
                             else:
@@ -592,35 +592,37 @@ def knockout_page(request):
             if length % 2 == 1:
                 return redirect('knock-out')
             
-            naming_list_list = []  # it not list inside list ! leave as it is
+            naming_list = []  # it will be (w,b,w,b,...) or the best accurate pairing between the white and black
             
             for _ in range(length):
                 
-                if len(white_players) != 0:
-                    naming_list_list.append(white_players[0])
+                if len(white_players) != 0:  # check if the length is zero
+                    naming_list.append(white_players[0])
                     white_players.pop(0)  # removes the value of the first index
                     
                     if len(black_players) != 0:
-                        naming_list_list.append(black_players[0])
+                        naming_list.append(black_players[0])
                         black_players.pop(0)
                     else:
-                        naming_list_list.append(white_players[0])
+                        naming_list.append(white_players[0])
                         white_players.pop(0)
                 
-                elif len(black_players) != 0:
-                    naming_list_list.append(black_players[0])
-                    naming_list_list.append(black_players[1])
+                elif len(black_players) != 0:  # if this is true then we know that just there is more black than white players
+                    # append the first two item to the name list to be pair since there is no white players left
+                    naming_list.append(black_players[0])
+                    naming_list.append(black_players[1])
                     black_players.pop(0)
                     black_players.pop(0)
                 
                 else:
                     break
-             
-            for i in range(len(naming_list_list)):
+            
+            # those names at even placement are white and others are black 
+            for i in range(len(naming_list)):
                 if i % 2 == 0:
-                    white_players.append(naming_list_list[i])
+                    white_players.append(naming_list[i])
                 else:
-                    black_players.append(naming_list_list[i])
+                    black_players.append(naming_list[i])
             
             shuffle(white_players)
             shuffle(black_players)
