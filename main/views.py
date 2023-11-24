@@ -168,7 +168,7 @@ def standing_page(request):
     
     scores = score_handler(obj=data)
     
-    ranking = {}  # it contain all the data but sorted base of score!
+    ranking = {}  # it contain all the data but sorted based of score!
     
     for score in scores:
         for name in data:
